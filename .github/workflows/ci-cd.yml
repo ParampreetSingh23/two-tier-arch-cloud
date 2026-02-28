@@ -5,9 +5,9 @@ name: AttendTrack CI/CD
 # - On every Pull Request targeting 'main'
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   # ─────────────────────────────────────────────────────────────
@@ -60,7 +60,7 @@ jobs:
     name: Build & Push Docker Images
     runs-on: ubuntu-latest
     needs: build-check          # Only runs if build-check passed
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
 
     steps:
       - name: Checkout code
