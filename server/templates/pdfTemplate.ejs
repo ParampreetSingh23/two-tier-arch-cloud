@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="utf-8">
+ <title>Attendance Report</title>
+ <style>
+  body {
+   font-family: Arial, sans-serif;
+   margin: 20px;
+   color: #333;
+  }
+
+  h1 {
+   color: #4f46e5;
+   border-bottom: 2px solid #4f46e5;
+   padding-bottom: 10px;
+  }
+
+  table {
+   width: 100%;
+   border-collapse: collapse;
+   margin-top: 20px;
+  }
+
+  th {
+   background: #4f46e5;
+   color: white;
+   padding: 10px;
+   text-align: left;
+  }
+
+  td {
+   padding: 8px 10px;
+   border-bottom: 1px solid #eee;
+  }
+
+  tr:nth-child(even) {
+   background: #f9f9f9;
+  }
+
+  .present {
+   color: green;
+   font-weight: bold;
+  }
+
+  .absent {
+   color: red;
+   font-weight: bold;
+  }
+
+  .late {
+   color: orange;
+   font-weight: bold;
+  }
+
+  .footer {
+   margin-top: 30px;
+   font-size: 12px;
+   color: #999;
+   text-align: center;
+  }
+ </style>
+</head>
+
+<body>
+ <h1>Attendance Report</h1>
+ <p>Generated: <%= new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric'
+   }) %>
+ </p>
+ <table>
+  <thead>
+   <tr>
+    <th>#</th>
+    <th>Student Name</th>
+    <th>Roll Number</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Notes</th>
+   </tr>
+  </thead>
+  <tbody>
+   <% data.forEach((record, i)=> { %>
+    <tr>
+     <td>
+      <%= i + 1 %>
+     </td>
+     <td>
+      <%= record.student ? record.student.name : 'N/A' %>
+     </td>
+     <td>
+      <%= record.student ? record.student.rollNumber : 'N/A' %>
+     </td>
+     <td>
+      <%= new Date(record.date).toLocaleDateString() %>
+     </td>
+     <td class="<%= record.status %>">
+      <%= record.status.charAt(0).toUpperCase() + record.status.slice(1) %>
+     </td>
+     <td>
+      <%= record.notes || '-' %>
+     </td>
+    </tr>
+    <% }) %>
+  </tbody>
+ </table>
+ <div class="footer">Student Attendance System — Confidential</div>
+</body>
+
+</html>

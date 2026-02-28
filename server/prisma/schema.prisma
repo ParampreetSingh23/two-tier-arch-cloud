@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  instituteType String?
+  createdAt     DateTime  @default(now())
+
+  groups    Group[]
+  students  Student[]
+}
+
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  schedule    String[] @default([])
+  createdAt   DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  students  Student[]
+}
+
+model Student {
+  id         String   @id @default(cuid())
+  rollNumber String   @unique
+  name       String
+  email      String
+  phone      String
+  course     String
+  semester   Int
+  createdAt  DateTime @default(now())
+
+  group      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId    String
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+
+  attendance Attendance[]
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  date      DateTime
+  status    AttendanceStatus
+  notes     String?
+  markedBy  String
+  createdAt DateTime @default(now())
+
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId String
+
+  @@unique([studentId, date])
+}
+
+enum AttendanceStatus {
+  present
+  absent
+  late
+}
