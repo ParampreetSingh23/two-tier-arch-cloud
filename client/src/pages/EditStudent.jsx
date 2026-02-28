@@ -56,7 +56,7 @@ export default function EditStudent() {
    <div className="card form-card animate-slide-up">
     <form onSubmit={handleSubmit} className="student-form">
      <div className="form-group">
-      <label>Class / Group *</label>
+      <label>Class / Group </label>
       <select required {...f('groupId')}>
        <option value="" disabled>Select Class</option>
        {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
