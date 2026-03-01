@@ -92,15 +92,13 @@ jobs:
           cache-to: type=gha,mode=max
 
       # Build and push the client image
-      # VITE_API_URL is injected at build time so the correct EC2 URL gets baked into the bundle
       - name: Build & push client image
         uses: docker/build-push-action@v5
         with:
           context: ./client
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/attendtrack-client:latest
-          build-args: |
-            VITE_API_URL=${{ secrets.VITE_API_URL }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
 

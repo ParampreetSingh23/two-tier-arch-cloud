@@ -38,10 +38,7 @@ services:
 
   # ─── Vite / React Frontend ─────────────────────────────────────────
   client:
-    build:
-      context: ./client
-      args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:5001/api}
+    build: ./client
     container_name: attendtrack-client
     restart: unless-stopped
     depends_on:
