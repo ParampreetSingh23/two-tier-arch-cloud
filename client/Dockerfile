@@ -1,6 +1,9 @@
 # Stage 1: Build the Vite app
 FROM node:18-alpine AS builder
 WORKDIR /app
+# Accept the EC2 backend URL at build time
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 COPY package.json ./
 RUN npm install
 COPY . .

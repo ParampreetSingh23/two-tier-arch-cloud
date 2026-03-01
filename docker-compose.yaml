@@ -30,7 +30,7 @@ services:
       DATABASE_URL: postgresql://postgres:password@db:5432/student_attendance
       JWT_SECRET: student-attendance-super-secret-jwt-2024
       PORT: 5001
-      CLIENT_URL: http://localhost
+      CLIENT_URL: ${CLIENT_URL:-http://localhost}
       EMAIL_USER: ${EMAIL_USER:-}
       EMAIL_PASS: ${EMAIL_PASS:-}
     ports:
@@ -38,7 +38,10 @@ services:
 
   # ─── Vite / React Frontend ─────────────────────────────────────────
   client:
-    build: ./client
+    build:
+      context: ./client
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:5001/api}
     container_name: attendtrack-client
     restart: unless-stopped
     depends_on:
