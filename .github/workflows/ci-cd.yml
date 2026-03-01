@@ -98,6 +98,8 @@ jobs:
           context: ./client
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/attendtrack-client:latest
+          build-args: |
+            VITE_API_URL=http://54.145.11.62/api
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
