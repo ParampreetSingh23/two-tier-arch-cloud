@@ -20,7 +20,7 @@ services:
 
   # ─── Express / Prisma Backend ──────────────────────────────────────
   server:
-    build: ./server
+    image: parampreetsingh23/attendtrack-server:latest
     container_name: attendtrack-server
     restart: unless-stopped
     depends_on:
@@ -38,7 +38,7 @@ services:
 
   # ─── Vite / React Frontend ─────────────────────────────────────────
   client:
-    build: ./client
+    image: parampreetsingh23/attendtrack-client:latest
     container_name: attendtrack-client
     restart: unless-stopped
     depends_on:
